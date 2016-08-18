@@ -1,5 +1,6 @@
-require "gusto_wrapper/version"
+require_relative "gusto_wrapper/version"
+require_relative "gusto_wrapper/employee"
 
 module GustoWrapper
-  # Your code goes here...
+	
 end
