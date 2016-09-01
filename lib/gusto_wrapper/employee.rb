@@ -1,7 +1,4 @@
-require 'faraday'
 require 'json'
-
-API_URL = "https://api.gusto.com/v1/employees"
 
 module GustoWrapper
 	class Employee
@@ -20,16 +17,10 @@ module GustoWrapper
 		end
 		
 		def self.find(id)
-			response = Faraday.get("#{API_URL}/#{id}")
+			response = RestClient.get "#{Client.get_api_url}/employees/#{id}", {:params => {:access_token => Client.access_token}}
 			attributes = JSON.parse(response.body)
 			
 			new(attributes)
-		end
-		
-		def self.all
-			response = Faraday.get(API_URL)
-			employees = JSON.parse(response.body)
-			employees.map { |attributes| new(attributes) }
 		end
 	end
 end
