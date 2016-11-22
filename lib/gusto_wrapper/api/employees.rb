@@ -16,6 +16,11 @@ module GustoWrapper
 			path = "v1/companies/#{company_id}/employees"
 			client.get(path)
 		end
+		
+		def get_employee_benefits(employee_id)
+			path = "v1/employees/#{employee_id}/employee_benefits"
+			client.get(path)
+		end
 	
 	end
 end
