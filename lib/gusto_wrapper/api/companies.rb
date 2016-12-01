@@ -32,5 +32,21 @@ module GustoWrapper
 			client.get(path, {processed: true})
 		end
 		
+		def get_available_benefits
+			path = "v1/benefits"
+			client.get(path)
+		end
+		
+		def create_company_benefit(company_id, benefit_id, active, description)
+			path = "v1/companies/#{company_id}/company_benefits"
+			params = {
+				benefit_id: benefit_id,
+				active: active,
+				description: description
+			}
+			
+			client.post(path, params)
+		end
+		
 	end
 end
