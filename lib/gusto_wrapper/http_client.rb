@@ -46,7 +46,7 @@ module GustoWrapper
 		end
 		
 		def auth_url
-			"https://api.gusto-demo.com/oauth/authorize?client_id=#{config[:client_id]}&redirect_uri=#{URI::encode(config[:redirect_url])}&response_type=code"
+			"#{base_url}oauth/authorize?client_id=#{config[:client_id]}&redirect_uri=#{URI::encode(config[:redirect_url])}&response_type=code"
 		end
 		
 		def get_params(options = false)
