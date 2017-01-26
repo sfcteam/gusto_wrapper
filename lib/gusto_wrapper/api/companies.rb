@@ -17,9 +17,31 @@ module GustoWrapper
 			client.get(path)
 		end
 		
-		def get_payrolls(company_id)
+		def get_payrolls(company_id, options = {})
+			default_options = {
+				processed: nil,
+				start_date: nil,
+				end_date: nil
+			}
+			
+			options = default_options.merge(options)
+			
+			parameter_options = {}
+			
+			unless options[:processed].nil?
+				parameter_options[:processed] = options[:processed]
+			end
+			
+			unless options[:start_date].nil?
+				parameter_options[:start_date] = options[:start_date]
+			end
+			
+			unless options[:end_date].nil?
+				parameter_options[:end_date] = options[:end_date]
+			end
+			
 			path = "v1/companies/#{company_id}/payrolls"
-			client.get(path)
+			client.get(path, parameter_options)
 		end
 		
 		def get_unprocessed_payrolls(company_id)
