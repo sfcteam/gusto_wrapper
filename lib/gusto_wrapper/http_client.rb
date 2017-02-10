@@ -69,7 +69,7 @@ module GustoWrapper
 		
 		def get(path, options = false)
 			response = with_error_handling { RestClient.get(full_url(path), get_params(options)) }
-			JSON.parse(response)
+			JSON.parse(response) rescue []
 		end
 		
 		def put(path, payload)
