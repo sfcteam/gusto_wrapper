@@ -10,6 +10,11 @@ module GustoWrapper
 			path = "v1/company_benefits/#{company_benefit_id}"
 			client.get(path)
 		end
+
+		def update(company_benefit_id, payload)
+			path = "v1/company_benefits/#{company_benefit_id}"
+			client.put(path,payload)
+		end
 		
 		def summary(company_benefit_id, start_date=false, end_date=false, detailed=false)
 			if start_date && end_date
