@@ -69,6 +69,28 @@ module GustoWrapper
 			
 			client.post(path, params)
 		end
+
+		def get_pay_periods(company_id, options = {})
+			default_options = {
+				start_date: nil,
+				end_date: nil
+			}
+
+			options = default_options.merge(options)
+
+			parameter_options = {}
+
+			unless options[:start_date].nil?
+				parameter_options[:start_date] = options[:start_date]
+			end
+
+			unless options[:end_date].nil?
+				parameter_options[:end_date] = options[:end_date]
+			end
+
+			path = "v1/companies/#{company_id}/pay_periods"
+			client.get(path, parameter_options)
+		end
 		
 	end
 end
