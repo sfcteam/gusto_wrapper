@@ -51,13 +51,13 @@ module GustoWrapper
 		
 		def get_params(options = false)
 			if options
-				params = {:params => {:access_token => config[:access_token]}}
+				params = {:access_token => config[:access_token]}
 				
 				options.each do |option|
 					params[:params][option[0]] = option[1]
 				end
 			else
-				params = {:params => {:access_token => config[:access_token]}}
+				params = {:access_token => config[:access_token]}
 			end
 			params
 		end
