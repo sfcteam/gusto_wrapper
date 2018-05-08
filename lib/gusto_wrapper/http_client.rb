@@ -50,7 +50,7 @@ module GustoWrapper
 		end
 		
 		def get_params(options = false)
-			params = {:access_token => config[:access_token], :params => {}}
+			params = {:Authorization => "Bearer #{config[:access_token]}", :params => {}}
 
 			if options
 				options.each do |option|
@@ -67,7 +67,7 @@ module GustoWrapper
 		end
 
 		def access_token_header
-			{:access_token => config[:access_token]}
+			{:Authorization => "Bearer #{config[:access_token]}"}
 		end
 		
 		def get(path, options = false)
