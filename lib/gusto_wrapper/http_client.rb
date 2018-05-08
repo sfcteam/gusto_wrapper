@@ -50,21 +50,24 @@ module GustoWrapper
 		end
 		
 		def get_params(options = false)
+			params = {:access_token => config[:access_token], :params => {}}
+
 			if options
-				params = {:access_token => config[:access_token]}
-				
 				options.each do |option|
 					params[:params][option[0]] = option[1]
 				end
-			else
-				params = {:access_token => config[:access_token]}
 			end
+
 			params
 		end
 		
 		def post_params(payload)
 			payload[:access_token] = config[:access_token]
 			payload
+		end
+
+		def access_token_header
+			{:access_token => config[:access_token]}
 		end
 		
 		def get(path, options = false)
@@ -73,12 +76,12 @@ module GustoWrapper
 		end
 		
 		def put(path, payload)
-			response = with_error_handling { RestClient.put(full_url(path), post_params(payload)) }
+			response = with_error_handling { RestClient.put(full_url(path), post_params(payload), access_token_header) }
 			response
 		end
 		
 		def post(path, payload)
-			response = with_error_handling { RestClient.post(full_url(path), post_params(payload)) }
+			response = with_error_handling { RestClient.post(full_url(path), post_params(payload), access_token_header) }
 			response
 		end
 		
