@@ -8,6 +8,7 @@ module GustoWrapper
 		def initialize(config, base_url)
 			@config = config
 			@base_url = base_url
+			puts "Gust base URL: #{base_url}".green
 		end
 		
 		def set_token(gusto_code)
@@ -73,6 +74,22 @@ module GustoWrapper
 		def get(path, options = false)
 			response = with_error_handling { RestClient.get(full_url(path), get_params(options)) }
 			JSON.parse(response) rescue []
+		end
+
+		def get_with_pagination(path, options = false)
+			puts "URL: #{full_url(path)}".green
+			response = with_error_handling { RestClient.get(full_url(path), get_params(options)) }
+			page = response.headers[:x_page]
+			total_count = response.headers[:x_total_count]
+			total_pages = response.headers[:x_total_pages]
+			per_page = response.headers[:x_per_page]
+			{
+				page: page.to_i,
+				total_count: total_count.to_i,
+				total_pages: total_pages.to_i,
+				per_page: per_page.to_i,
+				data: JSON.parse(response)
+			} rescue {}
 		end
 		
 		def put(path, payload)
